@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smart Study Planner AI</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+  <h1>📚 Smart Study Planner AI</h1>
+  <p>AI se apna study plan 10 sec me banao</p>
+  <input type="text" id="subject" placeholder="Subject likho: Math, English...">
+  <input type="text" id="goal" placeholder="Goal: Board Exam Pass">
+  <input type="number" id="days" placeholder="Kitne din: 7">
+  <button onclick="generatePlan()">Generate Plan</button>
+  <div id="result"></div>
+</div>
+<script src="app.js"></script>
+</body>
+</html>
