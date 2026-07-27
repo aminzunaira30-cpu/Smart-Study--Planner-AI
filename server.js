@@ -28,3 +28,27 @@ app.post('/api/generate', async (req, res) => {
 
 app.get('/', (req,res) => res.sendFile(path.join(__dirname, 'index.html')));
 app.listen(PORT, () => console.log(`Server running on ${PORT}`));
+// Gemini API Route
+app.post('/api/generate', async (req, res) => {
+  try {
+    const { subject, goal, days } = req.body;
+    
+    const prompt = `Create a ${days} day study plan for ${subject}. Goal: ${goal}. 
+    Make it simple, daily tasks, 1-2 hours per day. Use headings for each day.`;
+
+    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${process.env.GEMINI_API_KEY}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        contents: [{ parts: [{ text: prompt }] }]
+      })
+    });
+
+    const data = await response.json();
+    const plan = data.candidates[0].content.parts[0].text;
+    
+    res.json({ plan });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
